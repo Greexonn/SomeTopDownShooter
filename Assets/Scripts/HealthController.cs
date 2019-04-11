@@ -8,6 +8,8 @@ public class HealthController : MonoBehaviour
     public float currentHealth;
     public float maxHealth;
 
+    public GameObject deadPrefab;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -24,9 +26,14 @@ public class HealthController : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
-            //behaviour
-            Destroy(Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cylinder), transform.position, transform.rotation), 3.0f);
-            Destroy(gameObject);
+            Dead();
         }
+    }
+
+    protected virtual void Dead()
+    {
+        //behaviour
+        Destroy(Instantiate(deadPrefab, transform.position, transform.rotation), 3.0f);
+        Destroy(gameObject);
     }
 }
